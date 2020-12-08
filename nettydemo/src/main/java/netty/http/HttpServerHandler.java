@@ -1,16 +1,12 @@
 package netty.http;
 
-import com.sun.jndi.toolkit.url.Uri;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.CompositeByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
-
 import java.net.URI;
-
 /**
  * SimpleChannelInboundHandler是ChannelInboundHandlerAdapter的子类
  * HttpObject：封装有服务端和客户端相互通讯的数据
@@ -29,8 +25,6 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<HttpObject> {
 
             System.out.println("msg类型为：" + msg.getClass());
             System.out.println("客户端地址：" + ctx.channel().remoteAddress());
-
-
 
             ByteBuf content = Unpooled.copiedBuffer("我是服务端，你们好！", CharsetUtil.UTF_8);
 
