@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var socket;
+    if (window.WebSocket) {
+        socket = new WebSocket("ws://localhost:8989/aaa");
+        //此方法类似channelRead0
+        socket.onmessage = function (ev) {
+            var OnMes = document.getElementById("res");
+            OnMes.value = OnMes.value + "\n" + ev.data;
+        }
+
+        //开启连接(长连接)
+        socket.onopen = function (ev) {
+            var OnMes = document.getElementById("res");
+            OnMes.value = "已连接服务端";
+        }
+
+        //关闭连接
+        socket.onclose = function (ev) {
+            var OnMes = document.getElementById("res");
+            OnMes.value = OnMes.value + "\n" + "连接已断开";
+        }
+
+        //发送方法
+        function send(message) {
+            if (!window.socket) {
+                //socket没有创建好
+                return;
+            }
+            if (socket.readyState == WebSocket.OPEN) {
+                //状态为连接中
+                socket.send(message);//发送消息给服务端
+            } else {
+                alert("连接未开启");
+            }
+        }
+
+    } else {
+        console.log("不支持websocket");
+    }
+</script>
+<form onsubmit="return false;">
+    <textarea name="mes" style="height: 300px;width: 300px;"></textarea>
+    <input type="button" value="发送" onclick="send(this.form.mes.value)">
+    <textarea id="res" style="height: 300px;width: 300px"></textarea>
+    <input type="button" value="清空" onclick="document.getElementById('res').value=''">
+</form>
+</body>
+</html>
