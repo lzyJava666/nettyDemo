@@ -15,7 +15,6 @@ public class GroupChatServerHandler extends SimpleChannelInboundHandler<String> 
 
     //创建一个存放channel的group组
     public static ChannelGroup channelGroup = new DefaultChannelGroup("ChannelGroups", GlobalEventExecutor.INSTANCE);
-    ;
 
     //读取数据，并且转发
     protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
