@@ -14,12 +14,12 @@ public class MyServerHandler extends SimpleChannelInboundHandler<TextWebSocketFr
         ctx.channel().writeAndFlush(new TextWebSocketFrame("时间："+ LocalDateTime.now()+" 消息："+msg.text()));
     }
 
+
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         System.out.println("发生异常："+cause.getMessage());
         ctx.close();
     }
-
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         //asLongText唯一值
