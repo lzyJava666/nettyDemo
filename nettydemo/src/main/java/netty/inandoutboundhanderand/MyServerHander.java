@@ -2,15 +2,17 @@ package netty.inandoutboundhanderand;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.util.CharsetUtil;
+import netty.protocoltcp.MessageProtocol;
 
 /**
  * 由于前一个处理完，数据一定为long
  */
-public class MyServerHander extends SimpleChannelInboundHandler<Long> {
+public class MyServerHander extends SimpleChannelInboundHandler<MessageProtocol> {
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Long msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, MessageProtocol msg) throws Exception {
         System.out.println(" MyServerHander ");
-        System.out.println("从客户端"+ctx.channel().remoteAddress()+" :"+msg);
+        System.out.println("从客户端"+ctx.channel().remoteAddress()+" :"+new String(msg.getContent(), CharsetUtil.UTF_8));
         ctx.writeAndFlush(12512L);
     }
 
